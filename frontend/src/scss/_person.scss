@@ -1,0 +1,106 @@
+*, *::before, *::after {
+	box-sizing: border-box;
+	font-family: 'Jost', sans-serif;
+}
+
+.card {
+	color: $whiteish;
+	background-size: cover;
+	min-width: 350px;
+	padding: 10rem 0 0;
+	max-width: 35ch;
+	border-radius: 0.5rem;
+	overflow: hidden;
+	transition: transform 500ms ease;
+	margin: 1rem 2rem;
+	flex-grow: 1;
+
+	&:hover, &:focus-within {
+		transform: scale(1.05);
+	}
+
+	.card-content {
+		--padding: 1.5rem;
+		padding: var(--padding);
+		background: linear-gradient(
+			hsl(0 0% 0% / 0),
+			hsl(0 0% 0% / 0.2) 10%,
+			hsl(0 0% 0% / 1)
+		);
+
+		.card-title {
+			position: relative;
+			width: max-content;
+			margin-bottom: 5rem;
+
+			&::after {
+				content: '';
+				position: absolute;
+				height: 3px;
+				left: calc(var(--padding) * -1);
+				width: calc(100% + var(--padding));
+				bottom: -5px;
+				background: $accent;
+				transform-origin: left;
+				transition: transform 500ms ease;
+			}
+		}
+
+		.card-body {
+			color: rgb(255 255 255 / 0.85);
+		}
+
+		.button {
+			cursor: pointer;
+			display: inline-block;
+			text-decoration: none;
+			color: $blackish;
+			background-color: $accent;
+			padding: 0.4em 1.25em;
+			border-radius: 0.25em;
+
+			&:hover, &:focus {
+				background-color: $whiteish;
+			}
+
+			&:focus {
+				box-shadow: inset 0 0 1em 0 #000;
+			}
+		}
+	}
+
+	&:hover .card-title::after,
+	&:focus-within .card-title::after {
+		transform: scaleX(1);
+	}
+}
+
+@media (hover) {
+	.card-content {
+		transform: translateY(65%);
+		transition: transform 500ms ease;
+	}
+
+	.card:hover .card-content, .card:focus-within .card-content {
+		transform: translateY(0);
+		transition-delay: 300ms;
+	}
+
+	.card:focus-within .card-content {
+		transition-duration: 0ms;
+	}
+
+	.card-content > *:not(.card-title) {
+		opacity: 0;
+		transition: opacity 500ms linear;
+	}
+
+	.card:hover .card-content > *,
+	.card:focus-within .card-content > * {
+		opacity: 1;
+	}
+
+	.card-title::after {
+		transform: scaleX(0);
+	}
+}
